@@ -1,0 +1,118 @@
+#include <iostream>
+#include <vector>
+#include <random>
+using namespace std;
+
+int TABLE_SIZE = 10;
+//* key value pair structure
+struct key_value_pair
+{
+    int key;
+    int value;
+};
+
+class HashTable {
+private:
+    int TABLE_SIZE = 10; //* table size
+    vector<key_value_pair> *table; //* array of linked lists
+    int random_odd(); //* random odd integer generator
+    int hash(int key); //* hash function
+public:
+    HashTable(int n);
+    void update(key_value_pair pair); //* insert a new key
+    int search(int key); //* search for a key
+    void display(); //* display the hash table
+    long int query();
+};
+
+HashTable::HashTable(int n): TABLE_SIZE(n), table(new vector<key_value_pair>[n]) {
+    // initialize the linked lists in the table
+    for (int i = 0; i < n; i++) {
+        table[i] = vector<key_value_pair>();
+    }
+}
+
+int HashTable::random_odd(){
+    std::random_device rd;  // Seed the random number generator
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<uint32_t> dis(1, UINT32_MAX / 2);  // Range is [1, 2^31)
+
+    uint32_t rand_int = dis(gen);  // Generate a random 32-bit integer in the range [1, 2^31)
+    uint32_t odd_int = rand_int | 0x1;  // Set the least significant bit to 1 to get an odd number
+    return odd_int;
+}
+
+int HashTable::hash(int key) {
+    return key % TABLE_SIZE;
+}
+
+void HashTable::update(key_value_pair pair) {
+    int index = hash(pair.key);
+    //* if this key is not in the list, add the pair
+    int searched_index = search(pair.key);
+    if (searched_index == -1){
+        table[index].push_back(pair);
+    }
+    //* else add the new value to the value of the pair
+    else{
+        table[index][searched_index].value += pair.value;
+    }
+}
+
+int HashTable::search(int key) {
+    int index = hash(key);
+    int len = table[index].size();
+    //* if the list is empty, then return -1
+    if (len == 0){
+        return -1;
+    }
+    for (int i = 0; i < len; i++) {
+        //* find it, return the index of this element in this list
+        if (table[index][i].key == key) {
+            return i;
+        }
+    }
+    //* couldn't find it, return -1
+    return -1;
+}
+
+long int HashTable::query(){
+    long int tmp = 0;
+    //* run through all the lists in the table
+    for(int i = 0; i < TABLE_SIZE; i++){
+        //* if the current list is empty, pass this iteration
+        if(table[i].size() == 0){
+            continue;
+        }
+        //* summing up the square values in this list
+        for (const auto& element : table[i]){
+            tmp += element.value * element.value;
+        }
+    }
+    return tmp;
+}
+
+int main() {
+    HashTable ht(10);
+    key_value_pair a = {0, 1};
+    key_value_pair b = {1, 2};
+    key_value_pair c = {0, 3};
+    ht.update(a);
+    ht.update(b);
+    // ht.insert(10);
+    // ht.insert(20);
+    // ht.insert(30);
+    // ht.insert(40);
+    // ht.insert(50);
+
+    cout << "Search for key 0: " << ht.search(0) << endl;
+    cout << "Search for key 1: " << ht.search(1) << endl;
+    cout << "Search for key 2: " << ht.search(2) << endl;
+    cout << ht.query() << endl;
+    ht.update(c);
+    cout << "Search for key 0: " << ht.search(0) << endl;
+    cout << ht.query() << endl;
+    key_value_pair d = {4,1};
+    ht.update(d);
+    return 0;
+}
