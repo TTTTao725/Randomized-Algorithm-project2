@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "chrono": "cpp",
+        "complex": "cpp",
+        "iosfwd": "cpp",
+        "iostream": "cpp",
+        "__availability": "c",
+        "__hash_table": "c",
+        "__string": "c",
+        "__tree": "c",
+        "algorithm": "c",
+        "functional": "c"
+    }
+}

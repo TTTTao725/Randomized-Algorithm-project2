@@ -36,7 +36,7 @@ int main() {
         auto time_stamp1 = high_resolution_clock::now();
         for (int j = 0; j < pow(10, 9); j++){
             key_value_pair tmp = {j % N, 1};
-            ht.update(tmp, i+6);
+            ht.update(tmp);
         }
         auto time_stamp2 = high_resolution_clock::now();
         //* sketching: r = 2^7
