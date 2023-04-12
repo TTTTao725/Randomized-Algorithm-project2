@@ -2,7 +2,7 @@
  * @Author: Tao
  * @Date: 2023-04-12 12:37:50
  * @LastEditors: Tao
- * @LastEditTime: 2023-04-12 16:40:01
+ * @LastEditTime: 2023-04-12 16:38:47
  * @Description: 
  * Email: 202203580@post.au.dk
  * Copyright (c) 2023 by Tao Tang, All Rights Reserved. 
@@ -54,7 +54,7 @@ HashTable::HashTable(int w): TABLE_SIZE(pow(2, w) * 2), table(new vector<key_val
     for (int i = 0; i < pow(2, w) * 2; i++) {
         table[i] = vector<key_value_pair>();
     }
-    random_odd(w);
+    random_odd();
 }
 
 

@@ -2,7 +2,7 @@
  * @Author: Tao
  * @Date: 2023-04-12 12:37:50
  * @LastEditors: Tao
- * @LastEditTime: 2023-04-12 16:40:01
+ * @LastEditTime: 2023-04-12 16:20:21
  * @Description: 
  * Email: 202203580@post.au.dk
  * Copyright (c) 2023 by Tao Tang, All Rights Reserved. 
@@ -24,12 +24,12 @@ struct key_value_pair
 
 class HashTable {
 private:
-    int TABLE_SIZE = pow(2,5); //* table size
+    int TABLE_SIZE = pow(2,10); //* table size
     int hash_a; //* store the hash function
     vector<key_value_pair> *table; //* array of linked lists
     void random_odd(int w=32); //* random odd integer generator
 public:
-    HashTable(int w = 32);
+    HashTable(int w = 32, int n = pow(2,10));
     unsigned int hash(unsigned int key, int l=10, int w=32); //* hash function
     void update(key_value_pair pair, int w=32); //* insert a new key
     int search(unsigned int key, int w=32); //* search for a key
@@ -49,12 +49,12 @@ void HashTable::random_odd(int w){
     hash_a = odd_int;
 }
 
-HashTable::HashTable(int w): TABLE_SIZE(pow(2, w) * 2), table(new vector<key_value_pair>[pow(2, w) * 2]) {
+HashTable::HashTable(int n, int w): TABLE_SIZE(n), table(new vector<key_value_pair>[n]) {
     // initialize the linked lists in the table
-    for (int i = 0; i < pow(2, w) * 2; i++) {
+    for (int i = 0; i < n; i++) {
         table[i] = vector<key_value_pair>();
     }
-    random_odd(w);
+    random_odd();
 }
 
 

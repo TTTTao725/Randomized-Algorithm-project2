@@ -2,7 +2,7 @@
  * @Author: Tao
  * @Date: 2023-04-12 12:37:50
  * @LastEditors: Tao
- * @LastEditTime: 2023-04-12 16:40:01
+ * @LastEditTime: 2023-04-12 16:17:19
  * @Description: 
  * Email: 202203580@post.au.dk
  * Copyright (c) 2023 by Tao Tang, All Rights Reserved. 
@@ -24,12 +24,12 @@ struct key_value_pair
 
 class HashTable {
 private:
-    int TABLE_SIZE = pow(2,5); //* table size
+    int TABLE_SIZE = pow(2,10); //* table size
     int hash_a; //* store the hash function
     vector<key_value_pair> *table; //* array of linked lists
     void random_odd(int w=32); //* random odd integer generator
 public:
-    HashTable(int w = 32);
+    HashTable(int n = pow(2,10));
     unsigned int hash(unsigned int key, int l=10, int w=32); //* hash function
     void update(key_value_pair pair, int w=32); //* insert a new key
     int search(unsigned int key, int w=32); //* search for a key
@@ -42,19 +42,19 @@ void HashTable::random_odd(int w){
     // std::random_device rd;  // Seed the random number generator
     const uint32_t seed_value = 123456789;
     std::mt19937 gen(seed_value);
-    std::uniform_int_distribution<uint32_t> dis(1, (1u << w) - 1);  // Range is [1, 2^w - 1]
+    std::uniform_int_distribution<uint32_t> dis(1, (1u << w) - 1);  // Range is [1, 2^w - 1)
 
-    uint32_t rand_int = dis(gen);  // Generate a random 32-bit integer in the range [1, 2^32 -1]
+    uint32_t rand_int = dis(gen);  // Generate a random 32-bit integer in the range [1, 2^32 -1)
     uint32_t odd_int = rand_int | 1u;  // Set the least significant bit to 1 to get an odd number
     hash_a = odd_int;
 }
 
-HashTable::HashTable(int w): TABLE_SIZE(pow(2, w) * 2), table(new vector<key_value_pair>[pow(2, w) * 2]) {
+HashTable::HashTable(int n): TABLE_SIZE(n), table(new vector<key_value_pair>[n]) {
     // initialize the linked lists in the table
-    for (int i = 0; i < pow(2, w) * 2; i++) {
+    for (int i = 0; i < n; i++) {
         table[i] = vector<key_value_pair>();
     }
-    random_odd(w);
+    random_odd();
 }
 
 
