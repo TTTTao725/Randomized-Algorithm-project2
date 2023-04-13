@@ -2,7 +2,7 @@
  * @Author: Tao
  * @Date: 2023-04-12 12:37:50
  * @LastEditors: Tao
- * @LastEditTime: 2023-04-13 20:28:16
+ * @LastEditTime: 2023-04-12 18:31:57
  * @Description: 
  * Email: 202203580@post.au.dk
  * Copyright (c) 2023 by Tao Tang, All Rights Reserved. 
@@ -30,18 +30,13 @@ private:
     void random_odd(int w=32); //* random odd integer generator
 public:
     HashTable(int w = 32);
-    //* [2^w] -> [2^(w-1)]
     unsigned int hash(unsigned int key, int l=10, int w=32); //* hash function
-    void update(key_value_pair pair, int l=10, int w=32); //* insert a new key
-    int search(unsigned int key, int l=10, int w=32); //* search for a key
+    void update(key_value_pair pair, int w=32); //* insert a new key
+    int search(unsigned int key, int w=32); //* search for a key
     void display(); //* display the hash table
     long int query();
     void clear();
-    void update_hash_a(int w=32);
-    //* initialise an existing hash table to be a new hash table with 2^(w-1) size
-    void initialise(int w=32);
-    int get_table_size();
-    int get_hash_a();
+    void update_hash_a();
 };
 
 void HashTable::random_odd(int w){
@@ -55,24 +50,24 @@ void HashTable::random_odd(int w){
     hash_a = odd_int;
 }
 
-//* initialise the table size as the same to the number of update
-//* make the size of hashtable to be a half of the size of universe
-HashTable::HashTable(int w): TABLE_SIZE(int(pow(2, w))), table(new vector<key_value_pair>[int(pow(2, w))]) {
-    //* initialize the linked lists in the table
-    for (int i = 0; i < pow(2, w); i++) {
+HashTable::HashTable(int w): TABLE_SIZE(pow(2, w) * 2), table(new vector<key_value_pair>[pow(2, w) * 2]) {
+    // initialize the linked lists in the table
+    for (int i = 0; i < pow(2, w) * 2; i++) {
         table[i] = vector<key_value_pair>();
     }
-    //* uniformly pick a w-bit random odd integer
     random_odd(w);
 }
 
 
 unsigned int HashTable::hash(unsigned int key, int l, int w) {
-    return floor((hash_a*key % int((pow(2, w)))/ (int(pow(2, w-l)))));
+    if(l == 0){
+        return 0;
+    }
+    return hash_a*key >> (w - l);
 }
 
-void HashTable::update(key_value_pair pair, int l, int w) {
-    int index = hash(pair.key, l, w);
+void HashTable::update(key_value_pair pair, int w) {
+    int index = hash(pair.key, w);
     //* if this key is not in the list, add the pair
     int searched_index = search(pair.key, w);
     if (searched_index == -1){
@@ -84,8 +79,8 @@ void HashTable::update(key_value_pair pair, int l, int w) {
     }
 }
 
-int HashTable::search(unsigned int key, int l, int w) {
-    int index = hash(key, l, w);
+int HashTable::search(unsigned int key, int w) {
+    int index = hash(key, w);
     // cout << index << endl;
     int len = table[index].size();
     //* if the list is empty, then return -1
@@ -122,35 +117,13 @@ long int HashTable::query(){
 }
 
 void HashTable::clear(){
-    //* First, clear the vector pointed to by table
-    table->clear();
-    //* Then, deallocate the memory pointed to by table
-    delete[] table;
-    table = nullptr;
-}
-
-void HashTable::update_hash_a(int w){
-    random_odd(w);
-}
-
-void HashTable::initialise(int w){
-    //* reset the table size
-    TABLE_SIZE = pow(2, w);
-    //* initialise the hash table
-    table = new vector<key_value_pair>[TABLE_SIZE];
     for (int i = 0; i < TABLE_SIZE; i++) {
         table[i] = vector<key_value_pair>();
     }
-    //* repick an random odd to update the hash function
-    random_odd(w);
 }
 
-int HashTable::get_table_size(){
-    return TABLE_SIZE;
-}
-
-int HashTable::get_hash_a(){
-    return hash_a;
+void HashTable::update_hash_a(){
+    
 }
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -266,9 +239,5 @@ long int Sketching::query(){
 }
 
 void Sketching::clear(){
-    //* free up the memory
-    delete[] sketch_list;
-    sketch_list = nullptr;
-    //* reallocate list to a piece of memory
     sketch_list = new int[LIST_SIZE]();
 }

@@ -2,7 +2,7 @@
  * @Author: Tao
  * @Date: 2023-04-10 23:01:25
  * @LastEditors: Tao
- * @LastEditTime: 2023-04-13 20:45:11
+ * @LastEditTime: 2023-04-13 20:35:32
  * @Description: 
  * Email: 202203580@post.au.dk
  * Copyright (c) 2023 by Tao Tang, All Rights Reserved. 
@@ -40,13 +40,15 @@ int main() {
         //* initialise the hashing with chaining data structure
         ht.initialise(w);
         auto time_stamp1 = high_resolution_clock::now();
-        for (int j = 0; j < pow(10, 9); j++){
-            key_value_pair tmp = {j % n, 1};
-            ht.update(tmp, w, w);
-        }
+        // for (int j = 0; j < pow(10, 9); j++){
+        //     key_value_pair tmp = {j % n, 1};
+        //     cout << j << endl;
+        //     ht.update(tmp, w, w);
+        // }
         auto time_stamp2 = high_resolution_clock::now();
         //* sketching: r = 2^7
         for (int j = 0; j < pow(10, 9); j++){
+            cout << j << endl;
             key_value_pair tmp = {j % n, 1};
             sc7.update(tmp, pow(2, 7));
         }
@@ -82,7 +84,7 @@ int main() {
         average_update_sc20.push_back(average_sc20.count()/double(pow(10, 9)));
         cout << "average_update_sc20: " << endl;
         cout << average_update_sc20[i] << endl;
-        cout << "****************************" << endl;
+
         ht.clear();
         sc7.clear();
         sc10.clear();

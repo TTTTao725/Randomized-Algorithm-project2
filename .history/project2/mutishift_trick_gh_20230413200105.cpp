@@ -15,8 +15,11 @@ using namespace std::chrono;
 
 int main(){
     const int SIZE = pow(2, 10);
+    cout << 1 << endl;
     Sketching sc(SIZE);
+    cout << 2 << endl;
     HashTable ht(int(log2(SIZE)));
+    cout << 3 << endl;
     //* test...
     auto time_stamp1 = high_resolution_clock::now();
     cout << "mutiply-shift hash function" << endl;

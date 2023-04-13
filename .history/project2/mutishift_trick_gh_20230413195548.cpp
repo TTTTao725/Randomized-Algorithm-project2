@@ -2,7 +2,7 @@
  * @Author: Tao
  * @Date: 2023-04-11 23:29:20
  * @LastEditors: Tao
- * @LastEditTime: 2023-04-13 20:01:05
+ * @LastEditTime: 2023-04-13 19:45:06
  * @Description: 
  * Email: 202203580@post.au.dk
  * Copyright (c) 2023 by Tao Tang, All Rights Reserved. 
@@ -15,34 +15,29 @@ using namespace std::chrono;
 
 int main(){
     const int SIZE = pow(2, 10);
+    HashTable ht(SIZE);
     Sketching sc(SIZE);
-    HashTable ht(int(log2(SIZE)));
     //* test...
     auto time_stamp1 = high_resolution_clock::now();
-    cout << "mutiply-shift hash function" << endl;
     for (int i = 0; i < int(pow(10, 6)); i++){
         //* multiply-shift hash function
         ht.hash(i);
     }
-    cout << "mersenne modulo h" << endl;
     auto time_stamp2 = high_resolution_clock::now();
     for (int i = 0; i < int(pow(10, 6)); i++){
         //* mersenne modulo h
         sc.hash_h(i, SIZE);
     }
-    cout << "mersenne modulo g" << endl;
     auto time_stamp3 = high_resolution_clock::now();
     for (int i = 0; i < int(pow(10, 6)); i++){
         //* mersenne modulo g
         sc.hash_g(i);
     }
-    cout << "regular modulo h" << endl;
     auto time_stamp4 = high_resolution_clock::now();
     for (int i = 0; i < int(pow(10, 6)); i++){
         //* regular modulo h
         sc.hash_h_modulo(i, SIZE);
     }
-    cout << "regular modulo g" << endl;
     auto time_stamp5 = high_resolution_clock::now();
     for (int i = 0; i < int(pow(10, 6)); i++){
         //* regular modulo g

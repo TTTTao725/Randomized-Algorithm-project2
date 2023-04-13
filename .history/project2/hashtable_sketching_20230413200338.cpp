@@ -2,7 +2,7 @@
  * @Author: Tao
  * @Date: 2023-04-10 23:01:25
  * @LastEditors: Tao
- * @LastEditTime: 2023-04-13 20:45:11
+ * @LastEditTime: 2023-04-13 20:03:38
  * @Description: 
  * Email: 202203580@post.au.dk
  * Copyright (c) 2023 by Tao Tang, All Rights Reserved. 
@@ -39,10 +39,11 @@ int main() {
         // ht.update_hash_a(i+6);
         //* initialise the hashing with chaining data structure
         ht.initialise(w);
+        cout << "*" << endl;
         auto time_stamp1 = high_resolution_clock::now();
         for (int j = 0; j < pow(10, 9); j++){
             key_value_pair tmp = {j % n, 1};
-            ht.update(tmp, w, w);
+            ht.update(tmp, w-1, w);
         }
         auto time_stamp2 = high_resolution_clock::now();
         //* sketching: r = 2^7
@@ -71,18 +72,10 @@ int main() {
         auto average_sc20 = duration_cast<microseconds>(time_stamp5 - time_stamp4);
 
         average_update_hwc.push_back(average_ht.count()/double(pow(10, 9)));
-        cout << "average_update_hwc: " << endl;
-        cout << average_update_hwc[i] << endl;
         average_update_sc7.push_back(average_sc7.count()/double(pow(10, 9)));
-        cout << "average_update_sc7: " << endl;
-        cout << average_update_sc7[i] << endl;
         average_update_sc10.push_back(average_sc10.count()/double(pow(10, 9)));
-        cout << "average_update_sc10: " << endl;
-        cout << average_update_sc10[i] << endl;
         average_update_sc20.push_back(average_sc20.count()/double(pow(10, 9)));
-        cout << "average_update_sc20: " << endl;
-        cout << average_update_sc20[i] << endl;
-        cout << "****************************" << endl;
+
         ht.clear();
         sc7.clear();
         sc10.clear();

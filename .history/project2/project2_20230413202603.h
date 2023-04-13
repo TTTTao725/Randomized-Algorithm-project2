@@ -2,7 +2,7 @@
  * @Author: Tao
  * @Date: 2023-04-12 12:37:50
  * @LastEditors: Tao
- * @LastEditTime: 2023-04-13 20:28:16
+ * @LastEditTime: 2023-04-13 20:26:03
  * @Description: 
  * Email: 202203580@post.au.dk
  * Copyright (c) 2023 by Tao Tang, All Rights Reserved. 
@@ -68,7 +68,7 @@ HashTable::HashTable(int w): TABLE_SIZE(int(pow(2, w))), table(new vector<key_va
 
 
 unsigned int HashTable::hash(unsigned int key, int l, int w) {
-    return floor((hash_a*key % int((pow(2, w)))/ (int(pow(2, w-l)))));
+    return (hash_a*key % int((pow(2, w)))/ (int(pow(2, w-l))));
 }
 
 void HashTable::update(key_value_pair pair, int l, int w) {

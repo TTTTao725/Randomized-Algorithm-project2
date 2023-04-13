@@ -2,7 +2,7 @@
  * @Author: Tao
  * @Date: 2023-04-12 12:37:50
  * @LastEditors: Tao
- * @LastEditTime: 2023-04-13 20:28:16
+ * @LastEditTime: 2023-04-13 20:11:01
  * @Description: 
  * Email: 202203580@post.au.dk
  * Copyright (c) 2023 by Tao Tang, All Rights Reserved. 
@@ -40,8 +40,6 @@ public:
     void update_hash_a(int w=32);
     //* initialise an existing hash table to be a new hash table with 2^(w-1) size
     void initialise(int w=32);
-    int get_table_size();
-    int get_hash_a();
 };
 
 void HashTable::random_odd(int w){
@@ -68,7 +66,10 @@ HashTable::HashTable(int w): TABLE_SIZE(int(pow(2, w))), table(new vector<key_va
 
 
 unsigned int HashTable::hash(unsigned int key, int l, int w) {
-    return floor((hash_a*key % int((pow(2, w)))/ (int(pow(2, w-l)))));
+    if(l == 0){
+        return 0;
+    }
+    return hash_a*key >> (w - l);
 }
 
 void HashTable::update(key_value_pair pair, int l, int w) {
@@ -143,14 +144,6 @@ void HashTable::initialise(int w){
     }
     //* repick an random odd to update the hash function
     random_odd(w);
-}
-
-int HashTable::get_table_size(){
-    return TABLE_SIZE;
-}
-
-int HashTable::get_hash_a(){
-    return hash_a;
 }
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

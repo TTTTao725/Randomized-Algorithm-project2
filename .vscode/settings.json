@@ -9,6 +9,8 @@
         "__string": "c",
         "__tree": "c",
         "algorithm": "c",
-        "functional": "c"
+        "functional": "c",
+        "vector": "c",
+        "ostream": "cpp"
     }
 }

@@ -2,7 +2,7 @@
  * @Author: Tao
  * @Date: 2023-04-12 12:37:50
  * @LastEditors: Tao
- * @LastEditTime: 2023-04-13 20:28:16
+ * @LastEditTime: 2023-04-13 20:08:34
  * @Description: 
  * Email: 202203580@post.au.dk
  * Copyright (c) 2023 by Tao Tang, All Rights Reserved. 
@@ -40,8 +40,6 @@ public:
     void update_hash_a(int w=32);
     //* initialise an existing hash table to be a new hash table with 2^(w-1) size
     void initialise(int w=32);
-    int get_table_size();
-    int get_hash_a();
 };
 
 void HashTable::random_odd(int w){
@@ -57,7 +55,7 @@ void HashTable::random_odd(int w){
 
 //* initialise the table size as the same to the number of update
 //* make the size of hashtable to be a half of the size of universe
-HashTable::HashTable(int w): TABLE_SIZE(int(pow(2, w))), table(new vector<key_value_pair>[int(pow(2, w))]) {
+HashTable::HashTable(int w): TABLE_SIZE(pow(2, w)), table(new vector<key_value_pair>[int(pow(2, w))]) {
     //* initialize the linked lists in the table
     for (int i = 0; i < pow(2, w); i++) {
         table[i] = vector<key_value_pair>();
@@ -68,7 +66,10 @@ HashTable::HashTable(int w): TABLE_SIZE(int(pow(2, w))), table(new vector<key_va
 
 
 unsigned int HashTable::hash(unsigned int key, int l, int w) {
-    return floor((hash_a*key % int((pow(2, w)))/ (int(pow(2, w-l)))));
+    if(l == 0){
+        return 0;
+    }
+    return hash_a*key >> (w - l);
 }
 
 void HashTable::update(key_value_pair pair, int l, int w) {
@@ -135,22 +136,14 @@ void HashTable::update_hash_a(int w){
 
 void HashTable::initialise(int w){
     //* reset the table size
-    TABLE_SIZE = pow(2, w);
+    TABLE_SIZE = pow(2, w-1);
     //* initialise the hash table
-    table = new vector<key_value_pair>[TABLE_SIZE];
+    table = new vector<key_value_pair>[int(pow(2, w-1))];
     for (int i = 0; i < TABLE_SIZE; i++) {
         table[i] = vector<key_value_pair>();
     }
     //* repick an random odd to update the hash function
     random_odd(w);
-}
-
-int HashTable::get_table_size(){
-    return TABLE_SIZE;
-}
-
-int HashTable::get_hash_a(){
-    return hash_a;
 }
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

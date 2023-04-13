@@ -82,7 +82,7 @@ int main() {
         average_update_sc20.push_back(average_sc20.count()/double(pow(10, 9)));
         cout << "average_update_sc20: " << endl;
         cout << average_update_sc20[i] << endl;
-        cout << "****************************" << endl;
+
         ht.clear();
         sc7.clear();
         sc10.clear();

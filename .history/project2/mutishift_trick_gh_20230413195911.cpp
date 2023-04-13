@@ -2,7 +2,7 @@
  * @Author: Tao
  * @Date: 2023-04-11 23:29:20
  * @LastEditors: Tao
- * @LastEditTime: 2023-04-13 20:01:05
+ * @LastEditTime: 2023-04-13 19:58:17
  * @Description: 
  * Email: 202203580@post.au.dk
  * Copyright (c) 2023 by Tao Tang, All Rights Reserved. 
@@ -15,8 +15,9 @@ using namespace std::chrono;
 
 int main(){
     const int SIZE = pow(2, 10);
+    cout << 1 << endl;
+    HashTable ht(SIZE);
     Sketching sc(SIZE);
-    HashTable ht(int(log2(SIZE)));
     //* test...
     auto time_stamp1 = high_resolution_clock::now();
     cout << "mutiply-shift hash function" << endl;
