@@ -1,12 +1,3 @@
-/*
- * @Author: Tao
- * @Date: 2023-04-15 17:34:30
- * @LastEditors: Tao
- * @LastEditTime: 2023-04-15 18:48:00
- * @Description: 
- * Email: 202203580@post.au.dk
- * Copyright (c) 2023 by Tao Tang, All Rights Reserved. 
- */
 #include <iostream>
 #include <vector>
 #include <random>

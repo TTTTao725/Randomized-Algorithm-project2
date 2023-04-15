@@ -1,8 +1,8 @@
 /*
  * @Author: Tao
- * @Date: 2023-04-15 17:34:30
+ * @Date: 2023-04-15 18:09:47
  * @LastEditors: Tao
- * @LastEditTime: 2023-04-15 18:48:00
+ * @LastEditTime: 2023-04-15 18:11:57
  * @Description: 
  * Email: 202203580@post.au.dk
  * Copyright (c) 2023 by Tao Tang, All Rights Reserved. 
@@ -14,12 +14,11 @@
 #include <chrono>
 #include <fstream>
 #include "project2.h"
+#include "two_wise_sketching.h"
 using namespace std;
-using namespace std::chrono;
 
-
-vector<double> average_error_list;
-vector<double> max_error_list;
+vector<double> average_error_list_2wise;
+vector<double> max_error_list_2wise;
 int main(){
     int min_r=3;
     int max_r=20;
@@ -52,19 +51,18 @@ int main(){
             max_error = max(max_error, error);
         }
         double average_error_result = static_cast<double>(average_error_sum/static_cast<double>(experiment_times));
-        average_error_list.push_back(average_error_result);
-        max_error_list.push_back(max_error);
-        sc.reset_hash();
+        average_error_list_2wise.push_back(average_error_result);
+        max_error_list_2wise.push_back(max_error);
         sc.clear();
     }
     fstream fout;
-    fout.open("experiment_result/average_error.txt", ios::out);
-    for (auto i : average_error_list){
+    fout.open("experiment_result/average_error_2wise.txt", ios::out);
+    for (auto i : average_error_list_2wise){
         fout << i << endl;
     }
     fout.close();
-    fout.open("experiment_result/max_error.txt", ios::out);
-    for (auto i : max_error_list){
+    fout.open("experiment_result/max_error_2wise.txt", ios::out);
+    for (auto i : max_error_list_2wise){
         fout << i << endl;
     }
     fout.close();

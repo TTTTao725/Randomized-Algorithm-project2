@@ -2,7 +2,7 @@
  * @Author: Tao
  * @Date: 2023-04-12 12:37:50
  * @LastEditors: Tao
- * @LastEditTime: 2023-04-15 18:47:42
+ * @LastEditTime: 2023-04-14 07:07:27
  * @Description: 
  * Email: 202203580@post.au.dk
  * Copyright (c) 2023 by Tao Tang, All Rights Reserved. 
@@ -46,7 +46,7 @@ public:
 
 void HashTable::random_odd(int w){
     // std::random_device rd;  // Seed the random number generator
-    const uint32_t seed_value = 987654321;
+    const uint32_t seed_value = 123456789;
     std::mt19937 gen(seed_value);
     std::uniform_int_distribution<uint32_t> dis(1, (1u << w) - 1);  // Range is [1, 2^w - 1]
 
@@ -135,7 +135,7 @@ void HashTable::update_hash_a(int w){
 
 void HashTable::initialise(int w){
     //* reset the table size
-    TABLE_SIZE = pow(2, w-1);
+    TABLE_SIZE = pow(2, w);
     //* initialise the hash table
     table = new vector<key_value_pair>[TABLE_SIZE];
     for (int i = 0; i < TABLE_SIZE; i++) {
@@ -173,13 +173,12 @@ public:
     Sketching(int n = pow(2,10));
     //* estimated hash functions h and g
     unsigned int hash_h(unsigned int x, unsigned int r);
-    int hash_g(unsigned int x);
+    unsigned int hash_g(unsigned int x);
     unsigned int hash_h_modulo(unsigned int x, unsigned int r);
-    int hash_g_modulo(unsigned int x);
+    unsigned int hash_g_modulo(unsigned int x);
     void update(key_value_pair pair, unsigned int r);
     long int query();
     void clear();
-    void reset_hash();
 };
 
 unsigned int Sketching::mersenne_mod(unsigned int x, unsigned int p){
@@ -224,7 +223,7 @@ unsigned int Sketching::hash_h(unsigned int x, unsigned int r){
 }
 
 //* g = 2 * (k & 1) - 1
-int Sketching::hash_g(unsigned int x){
+unsigned int Sketching::hash_g(unsigned int x){
     unsigned int k = mersenne_mod(hash_a * x + hash_b);
     k = mersenne_mod(k * x + hash_c);
     k = mersenne_mod(k * x + hash_d);
@@ -240,7 +239,7 @@ unsigned int Sketching::hash_h_modulo(unsigned int x, unsigned int r){
     return (k >> 1) & (r - 1);
 }
 
-int Sketching::hash_g_modulo(unsigned int x){
+unsigned int Sketching::hash_g_modulo(unsigned int x){
     //* mersenne prime
     unsigned int p = (pow(2,31) - 1);
     unsigned int k = (hash_a * x + hash_b) % p;
@@ -272,8 +271,4 @@ void Sketching::clear(){
     sketch_list = nullptr;
     //* reallocate list to a piece of memory
     sketch_list = new int[LIST_SIZE]();
-}
-
-void Sketching::reset_hash(){
-    random_int();
 }

@@ -11,6 +11,7 @@
         "algorithm": "c",
         "functional": "c",
         "vector": "c",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "random": "cpp"
     }
 }

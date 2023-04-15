@@ -2,7 +2,7 @@
  * @Author: Tao
  * @Date: 2023-04-12 12:37:50
  * @LastEditors: Tao
- * @LastEditTime: 2023-04-15 18:47:42
+ * @LastEditTime: 2023-04-15 17:46:31
  * @Description: 
  * Email: 202203580@post.au.dk
  * Copyright (c) 2023 by Tao Tang, All Rights Reserved. 
@@ -173,13 +173,13 @@ public:
     Sketching(int n = pow(2,10));
     //* estimated hash functions h and g
     unsigned int hash_h(unsigned int x, unsigned int r);
-    int hash_g(unsigned int x);
+    unsigned int hash_g(unsigned int x);
     unsigned int hash_h_modulo(unsigned int x, unsigned int r);
-    int hash_g_modulo(unsigned int x);
+    unsigned int hash_g_modulo(unsigned int x);
     void update(key_value_pair pair, unsigned int r);
     long int query();
     void clear();
-    void reset_hash();
+    //* 2-wise indenpendent mutiply-shift
 };
 
 unsigned int Sketching::mersenne_mod(unsigned int x, unsigned int p){
@@ -224,7 +224,7 @@ unsigned int Sketching::hash_h(unsigned int x, unsigned int r){
 }
 
 //* g = 2 * (k & 1) - 1
-int Sketching::hash_g(unsigned int x){
+unsigned int Sketching::hash_g(unsigned int x){
     unsigned int k = mersenne_mod(hash_a * x + hash_b);
     k = mersenne_mod(k * x + hash_c);
     k = mersenne_mod(k * x + hash_d);
@@ -240,7 +240,7 @@ unsigned int Sketching::hash_h_modulo(unsigned int x, unsigned int r){
     return (k >> 1) & (r - 1);
 }
 
-int Sketching::hash_g_modulo(unsigned int x){
+unsigned int Sketching::hash_g_modulo(unsigned int x){
     //* mersenne prime
     unsigned int p = (pow(2,31) - 1);
     unsigned int k = (hash_a * x + hash_b) % p;
@@ -272,8 +272,4 @@ void Sketching::clear(){
     sketch_list = nullptr;
     //* reallocate list to a piece of memory
     sketch_list = new int[LIST_SIZE]();
-}
-
-void Sketching::reset_hash(){
-    random_int();
 }
