@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <random>
+#include <cassert>
 #include <chrono>
 #include <fstream>
 #include "project2.h"
@@ -23,21 +24,25 @@ int main(){
         for (int i = 0; i < experiment_times; i++){
             long long true_sum = 0;
             for (unsigned int key = 0; key < update_times; key++){
+                // assert(key*key == static_cast<int>(key*key));
                 key_value_pair tmp = {key, static_cast<int>(key*key)};
+                // key_value_pair tmp = {key, key*key};
                 sc.update(tmp,w);
                 // true frequency is key^2
                 auto freq = key*key;
                 true_sum += freq*freq;
             }
             auto fre_estimate = sc.query();
-            cout << "fre_estimate: " << fre_estimate << endl;
-            cout << "true_sum: " << true_sum << endl;
-            double error = static_cast<double>(abs(fre_estimate - true_sum)/true_sum);
-            // cout << error << endl;
+            // cout << "fre_estimate: " << fre_estimate << endl;
+            // cout << "true_sum: " << true_sum << endl;
+
+            //calculate the error of each experiment
+            double error = static_cast<double>(abs(fre_estimate - true_sum)/static_cast<double>(true_sum)); 
+            cout << error << endl;
             average_error_sum += error;
             max_error = max(max_error, error);
         }
-        double average_error_result = static_cast<double>(average_error_sum/experiment_times);
+        double average_error_result = static_cast<double>(average_error_sum/static_cast<double>(experiment_times));
         average_error_list.push_back(average_error_result);
         max_error_list.push_back(max_error);
         sc.clear();
