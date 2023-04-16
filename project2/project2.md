@@ -1,3 +1,4 @@
+*You can find the code of this project on https://github.com/TTTTao725/Randomized-Algorithm-project2
 ***
 ## Exercise 1
 $$\begin{aligned}
@@ -49,3 +50,28 @@ $$
 r > \frac{8}{\varepsilon^2}
 $$
 ***
+## Exercise 4 & 5
+We implemented modified Hashing with chaining data structure to store the exact vector norm and the sketching data structure to estimate it. 
+In hashing with chaining, we set the hash function to be $h: [2^w] \to [2^{w-1}]$, i.e we are mapping the universe space to a half of it. This can be done by the mutiply-shift hash function.
+On the other hand, the hash functions in the sketching $h : [n] \to [r]$ and $g : [n] \to \{-1, 1\}$ are implemented by another hash function $k : [n] \to [p]$.
+Finally, we test these hash functions $10^6$ times with keys $i = 0,...,10^6 - 1$. The average time for evaluating these hash functions are the following (The time unit is microsecond):
+|  mutiply-shift   | mersenne modulo h  | mersenne modulo g| regular modulo h| regular modulo g|
+|  ----  | ----  | ---- | ----| ----|
+| 0.050983  | 0.04044 | 0.033073 | 0.020796 | 0.02111 |
+***
+## Exercise 6 & 7
+For this part of experiment, we've tried to make $10^9$ updates in each of 23 experiments, but unfortunately the running time was way too slow when $the\ number\ of\ the\ universe > 2^{11}$, so we changed it to make $10^6$ updates instead.
+Again, we set the hash function to be $h: [2^w] \to [2^{w-1}]$ in the hashing with chaining data structure. The average update time of Hashing with chaining and sketching is shown below:
+
+![avatar](exercise7.png)
+
+As the result shows, the average update time of sketching of 3 different array size $r = 2^7, 2^{10}, 2^{20}$ are more stable than that of hashing with chaining as shown above.
+***
+## Exercise 8 & 9
+In this part, we will check the precision of estimation of the vector norm by sketching. We plotted the average error and the max error over $1000$ times.
+?the picture of exercise 8?
+Now we will check the effect of hash functions in the sketching data structure respect to the estimation of the vector norm. Compared with the 4-wise independent hash functions $h$ and $g$, we implemented two 2-wise independent hash functions and repeated the previous experiments. The result of the 2-wise hash functions are:
+
+![avatar](exercise9.png)
+
+Clearly, the choice of hash functions does matter. So we do need 4-wise independence to ensure the precision of estimation of sketching due to the derivations in the exercises.
