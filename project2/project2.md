@@ -12,7 +12,7 @@ $$\begin{aligned}
 &\Downarrow (4)\\
 &= \Vert f \Vert _{2}^{2}
 \end{aligned}$$
-\**The derivation (1) uses the **linearity of expectation**.*
+\*The derivation (1) uses the **linearity of expectation**.*
 \**The derivation (2) uses the independence of $h$ and $g$.*
 \**The derivation (3) uses the independence of the hash values of distinct keys.*
 \**The derivation (4) is because $\mathbb{E}[g(j)]=0$.*
