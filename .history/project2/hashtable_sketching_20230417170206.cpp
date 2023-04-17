@@ -2,7 +2,7 @@
  * @Author: Tao
  * @Date: 2023-04-10 23:01:25
  * @LastEditors: Tao
- * @LastEditTime: 2023-04-17 17:04:23
+ * @LastEditTime: 2023-04-17 15:19:12
  * @Description: 
  * Email: 202203580@post.au.dk
  * Copyright (c) 2023 by Tao Tang, All Rights Reserved. 
@@ -35,7 +35,7 @@ int main() {
         int w = i + 6;
         //* n = 2^N, N = 6,...,28
         int n = pow(2, w);
-        int n_updates = pow(10,6);
+        int n_updates = pow(10,9);
         //* hashing with chaining
         // ht.update_hash_a(i+6);
         //* initialise the hashing with chaining data structure
