@@ -63,7 +63,7 @@ Finally, we test these hash functions $10^6$ times with keys $i = 0,...,10^6 - 1
 For this part of experiment, we've tried to make $10^9$ updates in each of 23 experiments, but unfortunately the running time was way too slow when $the\ size\ of\ the\ universe > 2^{11}$, so we changed it to make $10^6$ updates instead.
 Again, we set the hash function to be $h: [2^w] \to [2^{w-1}]$ in the hashing with chaining data structure. The average update time of Hashing with chaining and sketching is shown below:
 
-![avatar](exercise7.png)
+![avatar](ex7_pic.svg)
 
 As the result shows, the average update time of sketching of 3 different array size $r = 2^7, 2^{10}, 2^{20}$ are more stable than that of hashing with chaining as shown above. As expected, the average update time for sketching data structure is almost constant, so should the hashing with chaining. But the plot for hashing with chaining is much more unstable. 
 When $logn = 12$, the average update time of hashing with chaining raise up to $0.6$, almost the 6 times compared to the previous experiments, I guess that's why the running time is extremely slow when $logn > 11$. It took us a whole night to run the 5th experiment ($logn = 12$) and we still could not finish it.
@@ -71,9 +71,11 @@ Maybe the reason why this
 ***
 ## Exercise 8 & 9
 In this part, we will check the precision of estimation of the vector norm by sketching. We plotted the average error and the max error over $1000$ times.
-?the picture of exercise 8?
+
+![avatar](ex8_pic.svg)
+
 Now we will check the effect of hash functions in the sketching data structure respect to the estimation of the vector norm. Compared with the 4-wise independent hash functions $h$ and $g$, we implemented two 2-wise independent hash functions and repeated the previous experiments. The result of the 2-wise hash functions are:
 
-![avatar](exercise9.png)
+![avatar](ex9_pic.svg)
 
 Clearly, the choice of hash functions does matter. So we do need 4-wise independence to ensure the precision of estimation of sketching due to the derivations in the exercises.

@@ -2,7 +2,7 @@
  * @Author: Tao
  * @Date: 2023-04-10 23:01:25
  * @LastEditors: Tao
- * @LastEditTime: 2023-04-17 15:19:12
+ * @LastEditTime: 2023-04-14 07:08:11
  * @Description: 
  * Email: 202203580@post.au.dk
  * Copyright (c) 2023 by Tao Tang, All Rights Reserved. 
@@ -35,31 +35,30 @@ int main() {
         int w = i + 6;
         //* n = 2^N, N = 6,...,28
         int n = pow(2, w);
-        int n_updates = pow(10,9);
         //* hashing with chaining
         // ht.update_hash_a(i+6);
         //* initialise the hashing with chaining data structure
         ht.initialise(w);
         auto time_stamp1 = high_resolution_clock::now();
-        for (int j = 0; j < n_updates; j++){
+        for (int j = 0; j < pow(10, 6); j++){
             key_value_pair tmp = {j % n, 1};
             ht.update(tmp, w-1, w);
         }
         auto time_stamp2 = high_resolution_clock::now();
         //* sketching: r = 2^7
-        for (int j = 0; j < n_updates; j++){
+        for (int j = 0; j < pow(10, 6); j++){
             key_value_pair tmp = {j % n, 1};
             sc7.update(tmp, pow(2, 7));
         }
         auto time_stamp3 = high_resolution_clock::now();
         //* sketching: r = 2^10
-        for (int j = 0; j < n_updates; j++){
+        for (int j = 0; j < pow(10, 6); j++){
             key_value_pair tmp = {j % n, 1};
             sc10.update(tmp, pow(2, 10));
         }
         auto time_stamp4 = high_resolution_clock::now();
         //* sketching: r = 2^20
-        for (int j = 0; j < n_updates; j++){
+        for (int j = 0; j < pow(10, 6); j++){
             key_value_pair tmp = {j % n, 1};
             sc20.update(tmp, pow(2, 20));
         }
@@ -71,16 +70,16 @@ int main() {
         auto average_sc10 = duration_cast<microseconds>(time_stamp4 - time_stamp3);
         auto average_sc20 = duration_cast<microseconds>(time_stamp5 - time_stamp4);
 
-        average_update_hwc.push_back(average_ht.count()/double(n_updates));
+        average_update_hwc.push_back(average_ht.count()/double(pow(10, 6)));
         cout << "average_update_hwc: " << endl;
         cout << average_update_hwc[i] << endl;
-        average_update_sc7.push_back(average_sc7.count()/double(n_updates));
+        average_update_sc7.push_back(average_sc7.count()/double(pow(10, 6)));
         cout << "average_update_sc7: " << endl;
         cout << average_update_sc7[i] << endl;
-        average_update_sc10.push_back(average_sc10.count()/double(n_updates));
+        average_update_sc10.push_back(average_sc10.count()/double(pow(10, 6)));
         cout << "average_update_sc10: " << endl;
         cout << average_update_sc10[i] << endl;
-        average_update_sc20.push_back(average_sc20.count()/double(n_updates));
+        average_update_sc20.push_back(average_sc20.count()/double(pow(10, 6)));
         cout << "average_update_sc20: " << endl;
         cout << average_update_sc20[i] << endl;
         cout << "****************************" << endl;

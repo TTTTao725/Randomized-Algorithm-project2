@@ -136,7 +136,7 @@ void HashTable::update_hash_a(int w){
 
 void HashTable::initialise(int w){
     //* reset the table size
-    TABLE_SIZE = pow(2, w-1);
+    TABLE_SIZE = pow(2, w);
     //* initialise the hash table
     table = new vector<key_value_pair>[TABLE_SIZE];
     for (int i = 0; i < TABLE_SIZE; i++) {

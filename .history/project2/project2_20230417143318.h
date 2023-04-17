@@ -2,7 +2,7 @@
  * @Author: Tao
  * @Date: 2023-04-12 12:37:50
  * @LastEditors: Tao
- * @LastEditTime: 2023-04-17 15:10:16
+ * @LastEditTime: 2023-04-17 14:33:18
  * @Description: 
  * Email: 202203580@post.au.dk
  * Copyright (c) 2023 by Tao Tang, All Rights Reserved. 
@@ -33,7 +33,7 @@ public:
     //* [2^w] -> [2^(w-1)]
     unsigned int hash(unsigned int key, int l=10, int w=32); //* hash function
     void update(key_value_pair pair, int l=10, int w=32); //* insert a new key
-    int search(unsigned int key, int index, int l=10, int w=32); //* search for a key
+    int search(unsigned int key, int l=10, int w=32); //* search for a key
     void display(); //* display the hash table
     long int query();
     void clear();
@@ -68,14 +68,13 @@ HashTable::HashTable(int w): TABLE_SIZE(int(pow(2, w-1))), table(new vector<key_
 
 
 unsigned int HashTable::hash(unsigned int key, int l, int w) {
-    //return floor(((hash_a*key % int((pow(2, w)))) >> (w - l)));
-    return floor(((hash_a*key % (1 << w)) >> (w - l)));
+    return floor(((hash_a*key % int((pow(2, w)))) >> (w - l)));
 }
 
 void HashTable::update(key_value_pair pair, int l, int w) {
     int index = hash(pair.key, l, w);
     //* if this key is not in the list, add the pair
-    int searched_index = search(pair.key, w, index);
+    int searched_index = search(pair.key, w);
     if (searched_index == -1){
         table[index].push_back(pair);
     }
@@ -85,8 +84,8 @@ void HashTable::update(key_value_pair pair, int l, int w) {
     }
 }
 
-int HashTable::search(unsigned int key, int index, int l, int w) {
-    int hashed_index = index;
+int HashTable::search(unsigned int key, int l, int w) {
+    int index = hash(key, l, w);
     // cout << index << endl;
     int len = table[index].size();
     //* if the list is empty, then return -1

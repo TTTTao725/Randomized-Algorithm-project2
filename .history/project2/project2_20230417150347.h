@@ -2,7 +2,7 @@
  * @Author: Tao
  * @Date: 2023-04-12 12:37:50
  * @LastEditors: Tao
- * @LastEditTime: 2023-04-17 15:10:16
+ * @LastEditTime: 2023-04-17 15:03:47
  * @Description: 
  * Email: 202203580@post.au.dk
  * Copyright (c) 2023 by Tao Tang, All Rights Reserved. 
@@ -86,7 +86,7 @@ void HashTable::update(key_value_pair pair, int l, int w) {
 }
 
 int HashTable::search(unsigned int key, int index, int l, int w) {
-    int hashed_index = index;
+    int index = index;
     // cout << index << endl;
     int len = table[index].size();
     //* if the list is empty, then return -1

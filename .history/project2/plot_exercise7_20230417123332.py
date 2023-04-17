@@ -2,7 +2,7 @@
 Author: Tao
 Date: 2023-04-12 15:34:45
 LastEditors: Tao
-LastEditTime: 2023-04-17 14:53:19
+LastEditTime: 2023-04-15 19:29:39
 Description: 
 Email: 202203580@post.au.dk
 Copyright (c) 2023 by Tao Tang, All Rights Reserved. 
@@ -19,19 +19,19 @@ x = []
 for i in range(6,29):
     x.append(i)
 
-with open('experiment_result/average_update_hwc.txt', 'r') as f:
+with open('project2/experiment_result/average_update_hwc.txt', 'r') as f:
     for line in f:
         average_update_hwc.append(float(line.strip('\n')))
 
-with open('experiment_result/average_update_sc7.txt', 'r') as f:
+with open('project2//experiment_result/average_update_sc7.txt', 'r') as f:
     for line in f:
         average_update_sc7.append(float(line.strip('\n')))
 
-with open('experiment_result/average_update_sc10.txt', 'r') as f:
+with open('project2/experiment_result/average_update_sc10.txt', 'r') as f:
     for line in f:
         average_update_sc10.append(float(line.strip('\n')))
 
-with open('experiment_result/average_update_sc20.txt', 'r') as f:
+with open('project2/experiment_result/average_update_sc20.txt', 'r') as f:
     for line in f:
         average_update_sc20.append(float(line.strip('\n')))
 

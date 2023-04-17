@@ -2,7 +2,7 @@
  * @Author: Tao
  * @Date: 2023-04-12 12:37:50
  * @LastEditors: Tao
- * @LastEditTime: 2023-04-17 15:10:16
+ * @LastEditTime: 2023-04-17 15:07:20
  * @Description: 
  * Email: 202203580@post.au.dk
  * Copyright (c) 2023 by Tao Tang, All Rights Reserved. 
@@ -57,9 +57,9 @@ void HashTable::random_odd(int w){
 
 //* initialise the table size as the same to the number of update
 //* make the size of hashtable to be a half of the size of universe
-HashTable::HashTable(int w): TABLE_SIZE(int(pow(2, w-1))), table(new vector<key_value_pair>[int(pow(2, w-1))]) {
+HashTable::HashTable(int w): TABLE_SIZE(int(pow(2, w))), table(new vector<key_value_pair>[int(pow(2, w))]) {
     //* initialize the linked lists in the table
-    for (int i = 0; i < pow(2, w-1); i++) {
+    for (int i = 0; i < pow(2, w); i++) {
         table[i] = vector<key_value_pair>();
     }
     //* uniformly pick a w-bit random odd integer
@@ -136,7 +136,7 @@ void HashTable::update_hash_a(int w){
 
 void HashTable::initialise(int w){
     //* reset the table size
-    TABLE_SIZE = pow(2, w-1);
+    TABLE_SIZE = pow(2, w);
     //* initialise the hash table
     table = new vector<key_value_pair>[TABLE_SIZE];
     for (int i = 0; i < TABLE_SIZE; i++) {

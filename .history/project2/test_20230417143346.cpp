@@ -40,7 +40,7 @@ int main(){
     cout << ht.query() << endl;
     // cout << ht.query() << endl;
     cout << sc.query() << endl;
-    cout << fabs(sc.query() - ht.query()) / ht.query() << endl;
+    cout << fabs(sc.query() - true_sum) / true_sum << endl;
     ht.clear();
     sc.clear();
     return 0;
