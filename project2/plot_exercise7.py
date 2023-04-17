@@ -19,60 +19,38 @@ x = []
 for i in range(6,29):
     x.append(i)
 
-with open('experiment_result/average_update_hwc.txt', 'r') as f:
+with open('project2/experiment_result/average_update_hwc.txt', 'r') as f:
     for line in f:
         average_update_hwc.append(float(line.strip('\n')))
 
-with open('experiment_result/average_update_sc7.txt', 'r') as f:
+with open('project2//experiment_result/average_update_sc7.txt', 'r') as f:
     for line in f:
         average_update_sc7.append(float(line.strip('\n')))
 
-with open('experiment_result/average_update_sc10.txt', 'r') as f:
+with open('project2/experiment_result/average_update_sc10.txt', 'r') as f:
     for line in f:
         average_update_sc10.append(float(line.strip('\n')))
 
-with open('experiment_result/average_update_sc20.txt', 'r') as f:
+with open('project2/experiment_result/average_update_sc20.txt', 'r') as f:
     for line in f:
         average_update_sc20.append(float(line.strip('\n')))
 
-plt.plot(x, average_update_hwc, label="hwc")
-plt.plot(x, average_update_sc7, label="sc7")
-plt.plot(x, average_update_sc10, label="sc10")
-plt.plot(x, average_update_sc20, label="sc20")
+tick = [6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]
+label = ['$2^6$','$2^7$','$2^8$','$2^9$','$2^{10}$',
+            '$2^{11}$','$2^{12}$','$2^{13}$','$2^{14}$',
+            '$2^{15}$','$2^{16}$','$2^{17}$','$2^{18}$',
+            '$2^{19}$','$2^{20}$','$2^{21}$','$2^{22}$',
+            '$2^{23}$','$2^{24}$','$2^{25}$','$2^{26}$',
+            '$2^{27}$','$2^{28}$']
+plt.xticks(tick, label)
+
+plt.plot(x, average_update_hwc, label="Hash with chaining")
+plt.plot(x, average_update_sc7, label="Sketch with r = $2^7$")
+plt.plot(x, average_update_sc10, label="Sketch with r = $2^{10}$")
+plt.plot(x, average_update_sc20, label="Sketch with r = $2^{20}$")
 plt.legend(loc="upper left")
-plt.xlabel('logn')
-plt.ylabel('average update time')
-# plt.subplot(2,2,1)
-# plt.plot(x, construction_time_hwc, c='r', label='hwc')
-# plt.plot(x, construction_time_ph, c='g', label='ph')
-# plt.plot(x, construction_time_rb, c='b', label='rb')
-# plt.legend(loc="upper left")
-# plt.xlabel('logn')
-# plt.ylabel('average construction time')
-# plt.title('average construction time VS logn')
+plt.xlabel('n keys')
+plt.ylabel('Average update time[microseconds]')
 
-# plt.subplot(2,2,2)
-# plt.plot(x, query_time_hwc, c='r', label='hwc')
-# plt.plot(x, query_time_ph, c='g', label='ph')
-# plt.plot(x, query_time_rb, c='b', label='rb')
-# plt.legend(loc="upper left")
-# plt.xlabel('logn')
-# plt.ylabel('average query time')
-# plt.title('average query time VS logn')
-
-# plt.subplot(2,2,3)
-# plt.plot(x, total_time_hwc, c='r', label='hwc')
-# plt.plot(x, total_time_ph, c='g', label='ph')
-# plt.plot(x, total_time_rb, c='b', label='rb')
-# plt.legend(loc="upper left")
-# plt.xlabel('logn')
-# plt.ylabel('average total execution time')
-# plt.title('average total execution time VS logn')
-
-# plt.subplot(2,2,4)
-# plt.plot(x, largest_size)
-# plt.xlabel('logn')
-# plt.ylabel('length')
-# plt.title('largest linked-list size for hashing with chaining')
-
-plt.show()
+plt.savefig('ex7_pic.svg', format='svg')
+# plt.show()
