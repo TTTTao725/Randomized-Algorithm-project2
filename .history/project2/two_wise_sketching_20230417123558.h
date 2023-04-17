@@ -2,7 +2,7 @@
  * @Author: Tao
  * @Date: 2023-04-15 17:52:26
  * @LastEditors: Tao
- * @LastEditTime: 2023-04-17 12:37:22
+ * @LastEditTime: 2023-04-17 12:35:58
  * @Description: 
  * Email: 202203580@post.au.dk
  * Copyright (c) 2023 by Tao Tang, All Rights Reserved. 
@@ -29,15 +29,15 @@ private:
     //* random integer generator
     void random_int();
     //* store the hash function
-    uint64_t hash_a;
-    uint64_t hash_b;
+    int hash_a;
+    int hash_b;
 public:
     Sketching_2wise(int n = pow(2,10));
     //* estimated hash functions h and g
     unsigned int hash_h(uint64_t x, unsigned int r);
     int hash_g(uint64_t x);
     void update(key_value_pair_64bit pair, unsigned int r);
-    long int query();
+    uint64_t query();
     void clear();
     void reset_hash();
 };
@@ -79,8 +79,8 @@ void Sketching_2wise::update(key_value_pair_64bit pair, unsigned int r){
     sketch_list[hash_h(pair.key, r)] += hash_g(pair.key) * pair.value;
 }
 
-long int Sketching_2wise::query(){
-    long int tmp = 0;
+uint64_t Sketching_2wise::query(){
+    uint64_t tmp = 0;
     for(int i = 0; i < LIST_SIZE; i++){
         tmp += sketch_list[i] * sketch_list[i];
     }

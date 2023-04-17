@@ -29,7 +29,7 @@ int main(){
         int update_times = pow(10, 3);
         int experiment_times = pow(10, 3);
         for (int i = 0; i < experiment_times; i++){
-            long long int true_sum = 0;
+            uint64_t true_sum = 0;
             //* key also has to be uint64_t
             for (uint64_t key = 0; key < update_times; key++){
                 // assert(key*key == static_cast<int>(key*key));

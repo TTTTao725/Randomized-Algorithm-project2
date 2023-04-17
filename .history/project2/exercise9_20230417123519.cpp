@@ -2,7 +2,7 @@
  * @Author: Tao
  * @Date: 2023-04-15 18:09:47
  * @LastEditors: Tao
- * @LastEditTime: 2023-04-17 12:37:44
+ * @LastEditTime: 2023-04-17 12:35:19
  * @Description: 
  * Email: 202203580@post.au.dk
  * Copyright (c) 2023 by Tao Tang, All Rights Reserved. 
@@ -29,13 +29,13 @@ int main(){
         int update_times = pow(10, 3);
         int experiment_times = pow(10, 3);
         for (int i = 0; i < experiment_times; i++){
-            long long int true_sum = 0;
+            uint64_t true_sum = 0;
             //* key also has to be uint64_t
             for (uint64_t key = 0; key < update_times; key++){
                 // assert(key*key == static_cast<int>(key*key));
                 key_value_pair_64bit tmp = {key, static_cast<uint64_t>(key*key)};
                 // key_value_pair tmp = {key, key*key};
-                sc.update(tmp,n);
+                sc.update(tmp,w);
                 // true frequency is key^2
                 auto freq = key*key;
                 true_sum += freq*freq;
