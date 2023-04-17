@@ -2,7 +2,7 @@
  * @Author: Tao
  * @Date: 2023-04-12 12:37:50
  * @LastEditors: Tao
- * @LastEditTime: 2023-04-17 11:57:54
+ * @LastEditTime: 2023-04-17 11:41:43
  * @Description: 
  * Email: 202203580@post.au.dk
  * Copyright (c) 2023 by Tao Tang, All Rights Reserved. 
@@ -16,7 +16,7 @@ using namespace std;
 //* key value pair structure
 struct key_value_pair
 {
-    uint64_t key;
+    unsigned int key;
     int value;
 };
 
@@ -163,19 +163,19 @@ private:
     //* random integer generator
     void random_int();
     //* Mersenne mod
-    uint64_t mersenne_mod(uint64_t x, uint64_t p = pow(2,31) - 1);
+    unsigned int mersenne_mod(unsigned int x, unsigned int p = pow(2,31) - 1);
     //* store the hash function
-    uint64_t hash_a;
-    uint64_t hash_b;
-    uint64_t hash_c;
-    uint64_t hash_d;
+    int hash_a;
+    int hash_b;
+    int hash_c;
+    int hash_d;
 public:
     Sketching(int n = pow(2,10));
     //* estimated hash functions h and g
-    unsigned int hash_h(uint64_t x, unsigned int r);
-    int hash_g(uint64_t x);
-    unsigned int hash_h_modulo(uint64_t x, unsigned int r);
-    int hash_g_modulo(uint64_t x);
+    unsigned int hash_h(unsigned int x, unsigned int r);
+    int hash_g(unsigned int x);
+    unsigned int hash_h_modulo(unsigned int x, unsigned int r);
+    int hash_g_modulo(unsigned int x);
     void update(key_value_pair pair, unsigned int r);
     long int query();
     void clear();
@@ -183,8 +183,8 @@ public:
     long long int* return_list();
 };
 
-uint64_t Sketching::mersenne_mod(uint64_t x, uint64_t p){
-    uint64_t y = (x & p) + (x >> 31);
+unsigned int Sketching::mersenne_mod(unsigned int x, unsigned int p){
+    unsigned int y = (x & p) + (x >> 31);
     if (y >= p){
         y -= p;
     }
@@ -193,31 +193,31 @@ uint64_t Sketching::mersenne_mod(uint64_t x, uint64_t p){
 
 void Sketching::random_int(){
     //* hash_a
-    const uint64_t seed_value = 123456789;
+    const uint32_t seed_value = 123456789;
     std::mt19937 gen(seed_value);
     //* Mersenne prime p = 2^31 -1
-    std::uniform_int_distribution<uint64_t> dis(0, pow(2,31) - 1);  // Range is [0, p - 1]
-    uint64_t rand_int1 = dis(gen);  // Generate a random 32-bit integer in the range [0, p - 1]
+    std::uniform_int_distribution<uint32_t> dis(0, pow(2,31) - 1);  // Range is [0, p - 1]
+    uint32_t rand_int1 = dis(gen);  // Generate a random 32-bit integer in the range [0, p - 1]
     hash_a = rand_int1;
 
     //* hash_b
     //* Mersenne prime p = 2^31 -1
-    uint64_t rand_int2 = dis(gen);  // Generate a random 32-bit integer in the range [0, p - 1]
+    uint32_t rand_int2 = dis(gen);  // Generate a random 32-bit integer in the range [0, p - 1]
     hash_b = rand_int2;
 
     //* hash_c
     //* Mersenne prime p = 2^31 -1
-    uint64_t rand_int3 = dis(gen);  // Generate a random 32-bit integer in the range [0, p - 1]
+    uint32_t rand_int3 = dis(gen);  // Generate a random 32-bit integer in the range [0, p - 1]
     hash_c = rand_int3;
 
     //* hash_d
     //* Mersenne prime p = 2^31 -1
-    uint64_t rand_int4 = dis(gen);  // Generate a random 32-bit integer in the range [0, p - 1]
+    uint32_t rand_int4 = dis(gen);  // Generate a random 32-bit integer in the range [0, p - 1]
     hash_d = rand_int4;
 }
 
 //* h = (k >> 1) & (r - 1)
-unsigned int Sketching::hash_h(uint64_t x, unsigned int r){
+unsigned int Sketching::hash_h(unsigned int x, unsigned int r){
     unsigned int k = mersenne_mod(hash_a * x + hash_b);
     k = mersenne_mod(k * x + hash_c);
     k = mersenne_mod(k * x + hash_d);
@@ -225,14 +225,14 @@ unsigned int Sketching::hash_h(uint64_t x, unsigned int r){
 }
 
 //* g = 2 * (k & 1) - 1
-int Sketching::hash_g(uint64_t x){
+int Sketching::hash_g(unsigned int x){
     unsigned int k = mersenne_mod(hash_a * x + hash_b);
     k = mersenne_mod(k * x + hash_c);
     k = mersenne_mod(k * x + hash_d);
     return 2 * (k & 1) - 1;
 }
 
-unsigned int Sketching::hash_h_modulo(uint64_t x, unsigned int r){
+unsigned int Sketching::hash_h_modulo(unsigned int x, unsigned int r){
     //* mersenne prime
     unsigned int p = (pow(2,31) - 1);
     unsigned int k = (hash_a * x + hash_b) % p;
@@ -241,7 +241,7 @@ unsigned int Sketching::hash_h_modulo(uint64_t x, unsigned int r){
     return (k >> 1) & (r - 1);
 }
 
-int Sketching::hash_g_modulo(uint64_t x){
+int Sketching::hash_g_modulo(unsigned int x){
     //* mersenne prime
     unsigned int p = (pow(2,31) - 1);
     unsigned int k = (hash_a * x + hash_b) % p;

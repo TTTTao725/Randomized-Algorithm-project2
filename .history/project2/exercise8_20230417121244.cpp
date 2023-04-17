@@ -2,7 +2,7 @@
  * @Author: Tao
  * @Date: 2023-04-15 17:34:30
  * @LastEditors: Tao
- * @LastEditTime: 2023-04-17 12:24:49
+ * @LastEditTime: 2023-04-17 12:12:44
  * @Description: 
  * Email: 202203580@post.au.dk
  * Copyright (c) 2023 by Tao Tang, All Rights Reserved. 
@@ -21,8 +21,6 @@ using namespace std::chrono;
 vector<double> average_error_list;
 vector<double> max_error_list;
 int main(){
-    // int min_r=3;
-    // int max_r=20;
     int min_r=3;
     int max_r=20;
     for (unsigned int w = min_r; w<= max_r ;w++){
@@ -34,7 +32,7 @@ int main(){
         int experiment_times = pow(10, 3);
         for (int i = 0; i < experiment_times; i++){
             long long true_sum = 0;
-            for (uint64_t key = 0; key < update_times; key++){
+            for (unsigned int key = 0; key < update_times; key++){
                 // assert(key*key == static_cast<int>(key*key));
                 key_value_pair tmp = {key, static_cast<int>(key*key)};
                 // key_value_pair tmp = {key, key*key};
@@ -45,13 +43,13 @@ int main(){
             }
             auto fre_estimate = sc.query();
             sc.clear();
-            // // auto true_norm = ht.query();
+            // auto true_norm = ht.query();
             cout << "fre_estimate: " << fre_estimate << endl;
             cout << "true_sum: " << true_sum << endl;
 
             //calculate the error of each experiment
             double error = static_cast<double>(abs(fre_estimate - true_sum)/static_cast<double>(true_sum)); 
-            cout << error << endl;
+            // cout << error << endl;
             average_error_sum += error;
             max_error = max(max_error, error);
         }

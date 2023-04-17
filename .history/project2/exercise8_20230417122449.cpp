@@ -23,8 +23,8 @@ vector<double> max_error_list;
 int main(){
     // int min_r=3;
     // int max_r=20;
-    int min_r=3;
-    int max_r=20;
+    int min_r=7;
+    int max_r=7;
     for (unsigned int w = min_r; w<= max_r ;w++){
         double average_error_sum = 0;
         double max_error = 0;

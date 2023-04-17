@@ -16,7 +16,7 @@ using namespace std;
 //* key value pair structure
 struct key_value_pair
 {
-    uint64_t key;
+    unsigned int key;
     int value;
 };
 

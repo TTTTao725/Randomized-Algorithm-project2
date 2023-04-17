@@ -2,7 +2,7 @@
  * @Author: Tao
  * @Date: 2023-04-15 17:34:30
  * @LastEditors: Tao
- * @LastEditTime: 2023-04-17 12:24:49
+ * @LastEditTime: 2023-04-17 12:22:08
  * @Description: 
  * Email: 202203580@post.au.dk
  * Copyright (c) 2023 by Tao Tang, All Rights Reserved. 
@@ -23,8 +23,8 @@ vector<double> max_error_list;
 int main(){
     // int min_r=3;
     // int max_r=20;
-    int min_r=3;
-    int max_r=20;
+    int min_r=7;
+    int max_r=7;
     for (unsigned int w = min_r; w<= max_r ;w++){
         double average_error_sum = 0;
         double max_error = 0;
@@ -34,7 +34,7 @@ int main(){
         int experiment_times = pow(10, 3);
         for (int i = 0; i < experiment_times; i++){
             long long true_sum = 0;
-            for (uint64_t key = 0; key < update_times; key++){
+            for (unsigned int key = 0; key < update_times; key++){
                 // assert(key*key == static_cast<int>(key*key));
                 key_value_pair tmp = {key, static_cast<int>(key*key)};
                 // key_value_pair tmp = {key, key*key};

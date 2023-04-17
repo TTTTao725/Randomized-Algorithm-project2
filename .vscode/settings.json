@@ -12,6 +12,7 @@
         "functional": "c",
         "vector": "c",
         "ostream": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "type_traits": "c"
     }
 }
