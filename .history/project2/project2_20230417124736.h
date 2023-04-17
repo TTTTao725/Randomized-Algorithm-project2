@@ -2,7 +2,7 @@
  * @Author: Tao
  * @Date: 2023-04-12 12:37:50
  * @LastEditors: Tao
- * @LastEditTime: 2023-04-17 12:50:47
+ * @LastEditTime: 2023-04-17 12:47:36
  * @Description: 
  * Email: 202203580@post.au.dk
  * Copyright (c) 2023 by Tao Tang, All Rights Reserved. 
@@ -195,7 +195,7 @@ void Sketching::random_int(){
     //* hash_a
     // const uint64_t seed_value = 123456789;
     std::random_device rd;
-    std::mt19937 gen(rd());
+    std::mt19937 gen(rd);
     //* Mersenne prime p = 2^31 -1
     std::uniform_int_distribution<uint64_t> dis(0, pow(2,31) - 1);  // Range is [0, p - 1]
     uint64_t rand_int1 = dis(gen);  // Generate a random 32-bit integer in the range [0, p - 1]
